@@ -1,5 +1,7 @@
-# Company
-
+---
+layout: post
+title: Companies
+---
 
 
 ## Why I should participate ? My code challenges works great ?

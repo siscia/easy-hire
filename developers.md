@@ -1,3 +1,8 @@
+---
+layout: post
+title: Developers
+---
+
 # Developer and Company for Open Source
 
 I made this little page to try to solve an extensive problem.
