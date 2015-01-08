@@ -1,6 +1,6 @@
 ---
-layout: post
 title: Developers
+layout: default
 ---
 
 # Developer and Company for Open Source
@@ -74,3 +74,6 @@ No, definitely no.
 A lot of factors are important in the hiring process, you can be the best developer in the world but not a good fit in a particular company.
 
 This is a way to give back to the open source community and have fun, be hired should be see as a nice side effect.
+
+[my_email]: mailto:simone@mweb.biz
+[company_page]: companies
