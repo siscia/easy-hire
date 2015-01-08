@@ -26,7 +26,7 @@ You can answer question like:
 
 ## Humm start to be interesting...
 
-And it is completely risk free, [just send me an email](my_email) and I will add you to the [companies page.](company_page)
+And it is completely risk free, [just send me an email][my_email] and I will add you to the [companies page.][company_page]
 
 ## Can I suggest open source where to test the candidate ?
 
@@ -40,5 +40,5 @@ As soon as some candidate make a pull request I will scan through such request p
 
 For now it is completely free of charge. Enjoy ;-)
 
-[my_email][mailto:simone@mweb.biz]
-[company_page][/companies]
+[my_email]: mailto:simone@mweb.biz
+[company_page]: /companies
