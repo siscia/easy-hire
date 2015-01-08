@@ -3,7 +3,7 @@ title: Companies
 ---
 
 
-## Why I should participate ? My code challenges works great ?
+## Why I should participate ? My code challenges works great !
 
 Are you sure ?
 
