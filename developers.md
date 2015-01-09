@@ -1,9 +1,8 @@
 ---
 title: Developers
 layout: default
----
 
-# Developer and Company for Open Source
+---
 
 I made this little page to try to solve an extensive problem.
 
@@ -23,9 +22,9 @@ On the other side, also developers do not like code challenges, they put a lot o
 
 There is a lot of need of high quality open source contribution, why don't contribute in some open source project to show your next employer your value as developer ?
 
-## Great, which company will hire me ?
+## Great, what company will hire me ?
 
-We are starting experimenting small with just a couple of companies, you can find the list [here](list_company)
+We are starting experimenting small with just a couple of companies, you can find the list [here][list_company]
 
 ## Those companies are amazing ! What now ?
 
@@ -47,7 +46,7 @@ Whatever you like !
 
 ## Great I make a pull request, and now ?
 
-Just [email me](my_email) please be sure to include your pull request, for what company you are applying and for what role.
+Just [email me][my_email] please be sure to include your pull request, for what company you are applying and for what role.
 
 Then I will write you back.
 
@@ -65,7 +64,9 @@ Great, it means that such issues was really important, again, we don't care if y
 
 You don't :)
 
-When you finish your work simply send me an [email](my_email) and you are great.
+When you finish your work simply send me an [email][my_email] and you are done.
+
+It's that easy ;)
 
 ## I will get hire for sure, right ?
 

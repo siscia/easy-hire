@@ -1,5 +1,6 @@
 ---
 title: Companies
+layout: default
 ---
 
 
