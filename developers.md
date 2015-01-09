@@ -1,7 +1,6 @@
 ---
 title: Developers
 layout: default
-
 ---
 
 I made this little page to try to solve an extensive problem.
@@ -24,7 +23,7 @@ There is a lot of need of high quality open source contribution, why don't contr
 
 ## Great, what company will hire me ?
 
-We are starting experimenting small with just a couple of companies, you can find the list [here][list_company]
+We are starting experimenting small with just a couple of companies, you can find the list [here.][company-list]
 
 ## Those companies are amazing ! What now ?
 
@@ -77,4 +76,4 @@ A lot of factors are important in the hiring process, you can be the best develo
 This is a way to give back to the open source community and have fun, be hired should be see as a nice side effect.
 
 [my_email]: mailto:simone@mweb.biz
-[company_page]: companies
+[company-list]: company-list.html

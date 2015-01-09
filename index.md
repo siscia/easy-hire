@@ -27,5 +27,15 @@ You can simply follow this guide:
 
 + [Companies][com]
 
+## What company partecipate ?
+
+We are extremelly young, you can find the list of the company inside the project [here.][company-list]
+
+## I want to put also my company in your list !
+
+Great, just get in touch and [send me an email.][my-email]
+
 [dev]: developers.html
 [com]: company.html
+[company-list]: company-list.html
+[my-email]: mailto:simone@mweb.biz
