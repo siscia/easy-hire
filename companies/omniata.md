@@ -1,6 +1,7 @@
 ---
 title: Omniata
 layout: default
+root: "../"
 ---
 
 [Omniata](http://www.omniata.com/) works mainly in Perl, C, Lua, JavaScript and Ruby.
