@@ -3,7 +3,7 @@ title: Omniata
 layout: default
 ---
 
-[Omniata](http://www.omniata.com/) works mainly in Perl, C and Lua.
+[Omniata](http://www.omniata.com/) works mainly in Perl, C, Lua, JavaScript and Ruby.
 
 [Open Postion](http://www.omniata.com/careers/)
 
