@@ -38,3 +38,29 @@ layout: default
 + [clibs/clib](https://github.com/clibs/clib)
 
 + [nicolasff/webdis](https://github.com/nicolasff/webdis)
+
+## JavaScript
+
++ [facebook/jest](https://github.com/facebook/jest)
+
++ [LeaVerou/prism](https://github.com/LeaVerou/prism)
+
++ [TalAter/annyang](https://github.com/TalAter/annyang)
+
++ [Flotype/now](https://github.com/Flotype/now)
+
++ [maxwellito/vivus](https://github.com/maxwellito/vivus)
+
++ [jonschlinkert/remarkable](https://github.com/jonschlinkert/remarkable)
+
+## Ruby
+
++ [guard/guard](https://github.com/guard/guard)
+
++ [plataformatec/simple_form](https://github.com/plataformatec/simple_form)
+
++ [javan/whenever](https://github.com/javan/whenever)
+
++ [stripe/poncho](https://github.com/stripe/poncho)
+
++ [rgeo/rgeo](https://github.com/rgeo/rgeo)
