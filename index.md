@@ -3,9 +3,9 @@ layout: default
 title: Open Hire
 ---
 
-Open Hire is a simple project that aim to change how companies hire developers.
+Open Hire is a simple project that aims at changing how companies hire developers.
 
-Developer instead of being introduce into the company by some (mostly) pointless code challenge are introduced by the value they bring to open source.
+Instead of being introduced to the company by code challenges, developers are given the possibility to show the value they bring to open source.
 
 In most situation it can be a win / win scenario.
 
@@ -13,11 +13,11 @@ In most situation it can be a win / win scenario.
 
 Developers will have more time and less pressure to show that they can really bring value to the company.
 
-Also the code they will write is going to be useful at the whole community.
+Furthermore the code they will write is going to be useful at the whole community.
 
 ## [Companies][com]
 
-Companies will get a real insign about how the candidate works, saving time and resource.
+Companies will get a real insight in how the candidate works, saving time and resource.
 
 ## Great ! How do I partecipate ?
 
@@ -27,7 +27,7 @@ You can simply follow this guide:
 
 + [Companies][com]
 
-## What company partecipate ?
+## What companies partecipate ?
 
 We are extremelly young, you can find the list of the company inside the project [here.][company-list]
 
