@@ -1,0 +1,7 @@
+- name: Omniata
+  link: http://www.omniata.com/
+  link-position: http://www.omniata.com/careers/
+  stack: [perl, c, lua, javascript, ruby]
+  location: San Francisco / Helsinki
+  sector: Data Analysis
+

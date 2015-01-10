@@ -1,0 +1,81 @@
+- name: perl
+  projects:
+  - name: brendangregg/FlameGraph
+    link: https://github.com/brendangregg/FlameGraph
+
+  - name: k4rthik/git-cal
+    link: https://github.com/k4rthik/git-cal
+    
+  - name: major/MySQLTuner-perl
+    link: https://github.com/major/MySQLTuner-perl
+
+  - name: Nordaaker/convos
+    link: https://github.com/Nordaaker/convos
+
+  - name: timkay/aws
+    link: https://github.com/timkay/aws
+
+- name: lua
+  projects:
+  - name: SnabbCo/snabbswitch
+    link: https://github.com/SnabbCo/snabbswitch
+
+  - name: ignacio/LuaNode
+    link: https://github.com/ignacio/LuaNode
+
+  - name: tylerneylon/pacpac
+    link: https://github.com/tylerneylon/pacpac
+
+  - name: Etiene/sailor
+    link: https://github.com/Etiene/sailor
+
+  - name: nrk/redis-lua
+    link: https://github.com/nrk/redis-lua
+
+- name: c
+  projects:
+  - name: antirez/redis
+    link: https://github.com/antirez/redis
+
+  - name: clibs/clib
+    link: https://github.com/clibs/clib
+
+  - name: nicolasff/webdis
+    link: https://github.com/nicolasff/webdis
+
+- name: javascript
+  projects:
+  - name: facebook/jest
+    link: https://github.com/facebook/jest
+
+  - name: LeaVerou/prism
+    link: https://github.com/LeaVerou/prism
+
+  - name: TalAter/annyang
+    link: https://github.com/TalAter/annyang
+
+  - name: Flotype/now
+    link: https://github.com/Flotype/now
+
+  - name: maxwellito/vivus
+    link: https://github.com/maxwellito/vivus
+
+  - name: jonschlinkert/remarkable
+    link: https://github.com/jonschlinkert/remarkable
+
+- name: ruby
+  projects:
+  - name: guard/guard
+    link: https://github.com/guard/guard
+
+  - name: plataformatec/simple_form
+    link: https://github.com/plataformatec/simple_form
+
+  - name: javan/whenever
+    link: https://github.com/javan/whenever
+
+  - name: stripe/poncho
+    link: https://github.com/stripe/poncho
+
+  - name: rgeo/rgeo
+    link: https://github.com/rgeo/rgeo
