@@ -42,4 +42,4 @@ As soon as some candidate make a pull request I will scan through such request p
 For now it is completely free of charge. Enjoy ;-)
 
 [my_email]: mailto:simone@mweb.biz
-[company_page]: companies
+[company_page]: company-list.html
