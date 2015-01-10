@@ -31,9 +31,9 @@ You can simply follow this guide:
 
 We do have 2 different kind of companies, friend and random.
 
-+ Friend are companies that we have talk and discuss with, they agree to put their name on the web site and basically are extremely cool about all this process.
++ *Friend* are companies that we have talk and discuss with, they agree to put their name on the web site and basically are extremely cool about all this process.
 
-+ Random are companies that we know are hiring, we haven't talk with them and we are not sure how much they like all the process.
++ *Random* are companies that we know are hiring, we haven't talk with them and we are not sure how much they like all the process.
 
 Of course you should point to the `friend` companies, but we are extremely young so the most of the companies are `random`.
 
