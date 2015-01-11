@@ -45,5 +45,5 @@ Great, just get in touch and [send me an email.][my-email]
 
 [dev]: developers.html
 [com]: company.html
-[company-list]: company-list.html
+[company-list]: list.html
 [my-email]: mailto:simone@mweb.biz

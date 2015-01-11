@@ -4,4 +4,12 @@
   stack: [perl, c, lua, javascript, ruby]
   location: San Francisco / Helsinki
   sector: Data Analysis
+  type: friend
 
+- name: Heap
+  link: https://heapanalytics.com/
+  link-position: https://heapanalytics.com/jobs
+  stack: [javascript, backbone]
+  location: San Francisco / REMOTE
+  sector: Tracking
+  type: random

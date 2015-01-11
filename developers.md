@@ -76,4 +76,4 @@ A lot of factors are important in the hiring process, you can be the best develo
 This is a way to give back to the open source community and have fun, be hired should be see as a nice side effect.
 
 [my_email]: mailto:simone@mweb.biz
-[company-list]: company-list.html
+[company-list]: list.html
