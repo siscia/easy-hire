@@ -39,7 +39,7 @@ Of course you should point to the **friend** companies, but we are extremely you
 
 You can find the list of both kind of companies [here.][company-list]
 
-## I want to put also my company in your list !
+## I want to add my company to your list !
 
 Great, just get in touch and [send me an email.][my-email]
 
