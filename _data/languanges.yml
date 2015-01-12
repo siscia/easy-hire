@@ -63,6 +63,9 @@
   - name: jonschlinkert/remarkable
     link: https://github.com/jonschlinkert/remarkable
 
+  - name: dmauro/Keypress/
+    link: https://github.com/dmauro/Keypress/
+    
 - name: ruby
   projects:
   - name: guard/guard
@@ -84,3 +87,11 @@
   projects:
   - name: Rhombik/rhombik-object-repository
     link: https://github.com/Rhombik/rhombik-object-repository
+
+  - name: binux/pyspider
+    link: https://github.com/binux/pyspider
+
+- name: go
+  projects:
+  - name: pinggg/pingd.git
+    link: https://github.com/pinggg/pingd.git
