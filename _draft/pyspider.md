@@ -3,7 +3,7 @@
 
 In this first article we are going to analyze a web crawler.
 
-I choose an healty and young open source project in particular [pyspider][pyspider] wrote by our friend [binux][binux].
+I choose an healthy and young open source project in particular [pyspider][pyspider] wrote by our friend [binux][binux].
 
 ### A little side note
 
@@ -17,21 +17,21 @@ We have a **scheduler**, **fetcher**, **processor** and a component to monitor t
 
 The scheduler receive task and decide what to do.
 
-There are several possibilities, it can discard a task (maybe the specific web page is been crawled a very little while ago) or it can assign different degree of priorities (a new page will have an higher priorities of a page alreay crawled 5 day ago.) 
+There are several possibilities, it can discard a task (maybe the specific web page is been crawled a very little while ago) or it can assign different degree of priorities (a new page will have an higher priorities of a page already crawled 5 day ago.) 
 
-When the priorities of the variuos task is been decided, then those tasks are feeded to the fetcher.
+When the priorities of the various task is been decided, then those tasks are feeded to the fetcher.
 
 The fetcher retry the web page, it is fairly sophisticated, but logically does very little.
 
-When a resource is been fetched from the web is responsability of the processor to extract usefull information.
+When a resource is been fetched from the web is responsibility of the processor to extract useful information.
 
-The processor run a python script wrote by the user, such script is not sandboxed.
+The processor run a python script wrote by the user, such script is not sand boxed.
 
-It is duty of the processor to capture any exception or log and manage those appropriartely.
+It is duty of the processor to capture any exception or log and manage those appropriately.
 
 Finally there is the monitor component.
 
-The web ui is extremelly powerful, it let you to edit and debug your script, to manage the whole process, to monitor what task are going on and finally to export the result.
+The web ui is extremely powerful, it let you to edit and debug your script, to manage the whole process, to monitor what task are going on and finally to export the result.
 
 ## Code Structure Analysis
 
@@ -45,11 +45,11 @@ The folder we can find in the root are:
 
 + `pyspider`, it contains the actual code.
 
-+ `test`, it contains a farly good ammount of test.
++ `test`, it contains a fairly good amount of test.
 
-Then there are some important file that I would like to highligh:
+Then there are some important file that I would like to highlight:
 
-+ `.travis.yml`, wonderful continuos integration, this is how you are sure that your project actually works, test in only your machine with only your version of the code is not enough.
++ `.travis.yml`, wonderful continuous integration, this is how you are sure that your project actually works, test in only your machine with only your version of the code is not enough.
 
 + `Dockerfile`, again, wonderful, if I want to try the project in my machine I just run Docker, I don't need to install anything manually, this is a great way to involve developer to contribute in your project.
 
@@ -61,7 +61,7 @@ Then there are some important file that I would like to highligh:
 
 + `setup.py`, this file is a python script that set the system ready to go.
 
-Already from just the root of the project we can say that it is been developed in an extremelly professional way, if you are writing any open source this level is what is expected.
+Already from just the root of the project we can say that it is been developed in an extremely professional way, if you are writing any open source this level is what is expected.
 
 ### pyspider
 
@@ -97,15 +97,15 @@ This function seems complex but stay with me, it is not that bad.
 
 Firstly it set the logging system.
 
-Then it allach all the database infracsture necessary, you can see that it support MySQL, MongoDB and SQLite (why don't you add PostgreSQL ?) and also manage the special case of benchmarking.
+Then it set up all the database infrastructure necessary, you can see that it support MySQL, MongoDB and SQLite (why don't you add PostgreSQL ?) and also manage the special case of bench marking.
 
 After the database we take care of set up the Queue system, you can guess that it will support RabbitMQ and the normal multiprocessing queue offered by python.
 
-It set phantomjs a way to manage ajax web page.
+It set phantomjs a way to manage Ajax web page.
 
-It add a list to the dictionary that keep all the information it has build untill now.
+It add a list to the dictionary that keep all the information it has build until now.
 
-Up untill now this function have simply build the contex where the software is going to run.
+Up until now this function have simply build the context where the software is going to run.
 
 Finally, if we just want to run the application another function is invoked.
 
@@ -117,7 +117,7 @@ A web crawler does A LOT of IO, it is a good idea to spawn different thread/subp
 
 The function `all()` decide if run subprocess or thread and then invoke all the necessary function inside a different thread/subprocess.
 
-At this point the required number of thread are spawed for any of the logical piece of the crawler, including the webui.
+At this point the required number of thread are spawned for any of the logical piece of the crawler, including the webui.
 
 When we finish and close the webui we will closing each thread in a nice and clean way.
 
