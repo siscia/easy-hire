@@ -13,3 +13,29 @@
   location: San Francisco / REMOTE
   sector: Tracking
   type: random
+
+- name: Canary
+  link: http://canary.is
+  link-position: http://canary.is/jobs/
+  stack: [C, python, javascript, java, Object-C]
+  location: New York
+  sector: IoT, Home 
+  type: random
+  email: 
+
+- name: Mediamath
+  link: http://www.mediamath.com/
+  link-position: http://www.mediamath.com/careers/
+  stack: 
+  location: New York
+  sector: BigData, Ads
+  type: random
+
+- name: chartbeat
+  link: https://chartbeat.com
+  link-position: https://chartbeat.com/jobs/
+  stack: [python, clojure, java, c, lua]
+  location: New York
+  type: Big Data
+  email: jobs@chartbeat.com
+  
