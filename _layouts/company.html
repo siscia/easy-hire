@@ -27,12 +27,11 @@
 
     <p> Location: {{data[0].location}}</p>
 
-    <p> Work with: {{data[0].sector}} </p>
+    <p> Work about: {{data[0].sector}} </p>
 
-    <p> Stack : {{stack | array_to_sentence_string}} <p>
+    <p> Stack: {{ stack | array_to_sentence_string}} </p>
 
-      {{ stack | map:'capitalize' }}
-      
+    
     {% for lang in stack %}
       {% assign projects = site.data.languanges|where:"name",lang%}
       <h2> {{ projects[0].name | capitalize }} </h2>

@@ -17,21 +17,13 @@
 - name: Canary
   link: http://canary.is
   link-position: http://canary.is/jobs/
-  stack: [C, python, javascript, java, Object-C]
+  stack: [c, python, javascript, java, Object-C]
   location: New York
   sector: IoT, Home 
   type: random
-  email: 
+  email: nil
 
-- name: Mediamath
-  link: http://www.mediamath.com/
-  link-position: http://www.mediamath.com/careers/
-  stack: 
-  location: New York
-  sector: BigData, Ads
-  type: random
-
-- name: chartbeat
+- name: Chartbeat
   link: https://chartbeat.com
   link-position: https://chartbeat.com/jobs/
   stack: [python, clojure, java, c, lua]
@@ -39,4 +31,4 @@
   sector: Big Data
   type: random
   email: jobs@chartbeat.com
-  
+
