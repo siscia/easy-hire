@@ -36,6 +36,7 @@
   link-position: https://chartbeat.com/jobs/
   stack: [python, clojure, java, c, lua]
   location: New York
-  type: Big Data
+  sector: Big Data
+  type: random
   email: jobs@chartbeat.com
   
