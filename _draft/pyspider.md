@@ -89,7 +89,7 @@ In this folder we find also the main entry point of the whole project, `run.py`.
 
 ### run.py
 
-This file make all the necessaries chores in order to run the crawler sucessfully.
+This file make all the necessaries chores in order to run the crawler successfully.
 
 Finally it spawn all the necessary computational unities.
 
@@ -109,7 +109,7 @@ Finally we start the real work invoking the function `all()`.
 
 A web crawler does A LOT of IO, it is a good idea to spawn different thread/subprocess to manage all this work.
 
-In this way when you are waiting for the network to get your html page, at the same time you are extracting useful information from the previuos pages.
+In this way when you are waiting for the network to get your html page, at the same time you are extracting useful information from the previous pages.
 
 The function `all()` decide if run subprocess or thread and then invoke all the necessary function inside a different thread/subprocess.
 
@@ -154,8 +154,75 @@ It is important to know that only the fetcher is aware of this difference.
 
 We are going to focus only on the plain html text fetcher, however most of the ideas can be easily ported to the Ajax fetcher.
 
+The idea here is somehow similar to the scheduler one, we have two queue, one of input and one of output and a big loop.
+
+For any element in the input queue, make a request and put the result in the output queue.
+
+It sound easy but there is a big problem.
+
+The net usually is extremely slow, if you block all the computation whenever you are waiting for a web page the whole is going to run extremely slow.
+
+The solution is simple, do not block the whole computation while you are waiting for the network.
+
+The idea, is to send a lot of message pretty much all together over the network and asynchronously wait for the responses to come back.
+
+As soon as we got back one response we call another function, a callback that will take care of manage, in the most appropriate way, such response.
+
+All the heavy asynchronous lift in pyspider is made by [tornado][tornado] another great open source project.
+
+Now that we have the big idea in mind let's explore a little more deeply how this is implemented.
+
+#### run()
+
+The method `run()` is the big loop of our fetcher.
+
+Inside run another function `queue_loop()` is defined, such function take all the task in the input queue and fetch them, also it listen for interruption signal.
+
+`queue_loop` is passed as argument to a tornado class `PeriodicCallback` that, how you can guess, will call it any specific amount of time.
+
+`queue_loop()` just call another function that bring us a step closer to actually retrieve the web resource: `fetch()`.
+
+#### fetch(self, task, callback=None)
+
+`fetch()` just decide what is the proper way to retrieve a resource, if the resource must be retrieve using `phantomjs_fetch` or the simpler `http_fetch`.
+
+We are going to follow `http_fetch()`.
+
+#### http_fetch(self, url, task, callback)
+
+Finally, here is where the real work is done.
+
+This method is a little long, but it is well structured and easy to follow.
+
+In the first part of the method we are all setting the header, so stuff like the User-Agent, the timeout etc.
+
+Then a function to handle the response is defined, `handle_response()`, we are going to analyze this function later.
+
+Finally we make a tornado request and we fired up such request.
+
+{% highligh python %}
+if self.async:
+    self.http_client.fetch(request, handle_response)
+else:
+    return handle_response(self.http_client.fetch(request))
+{% endhighlight %}
+
+Please note how the same function to handle the response is used in either case, asynchronous and not asynchronous.
+
+Let's go a little back and analyze what `handle_response()` does.
+
+#### handle_response(response)
+
+The function save in a dictionary all the relevant information about a response, stuff like the url, the status code and the actual response, then it call the callback.
+
+The callback is a little method, `send_result`.
+
+#### send_result(self, type, task, result)
+
+This final method put the result in the output queue, ready to be consumed by the processor.
 
 
 
 [pyspider]: https://github.com/binux/pyspider
 [binux]: https://github.com/binux
+[tornado]: http://tornadoweb.org/
