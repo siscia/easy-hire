@@ -95,3 +95,10 @@
   projects:
   - name: pinggg/pingd.git
     link: https://github.com/pinggg/pingd.git
+
+- name: java
+  projects:
+  - name: mvarnagiris/Financius
+    link: https://github.com/mvarnagiris/Financius
+    description: Personal finance tracking tool for Android.
+
