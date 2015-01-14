@@ -17,7 +17,7 @@ We have a **scheduler**, **fetcher**, **processor** and a component to monitor t
 
 The scheduler receive task and decide what to do.
 
-There are several possibilities, it can discard a task (maybe the specific web page is been crawled a very little while ago) or it can assign different degree of priorities (a new page will have an higher priorities of a page already crawled 5 day ago.) 
+There are several possibilities, it can discard a task (maybe the specific web page is been crawled a very little while ago) or it can assign different degree of priorities. 
 
 When the priorities of the various task is been decided, then those tasks are feeded to the fetcher.
 
@@ -89,37 +89,71 @@ In this folder we find also the main entry point of the whole project, `run.py`.
 
 ### run.py
 
+This file make all the necessaries chores in order to run the crawler sucessfully.
+
+Finally it spawn all the necessary computational unities.
+
 Scrolling down we can see the entry point of the whole project, `cli()`.
 
 #### cli()
 
 This function seems complex but stay with me, it is not that bad.
 
-Firstly it set the logging system.
+The main goal of `cli()` is to create all the connection to the database and to the message system.
 
-Then it set up all the database infrastructure necessary, you can see that it support MySQL, MongoDB and SQLite (why don't you add PostgreSQL ?) and also manage the special case of bench marking.
+Mostly it parse command line argument, and create a big dictionary with everything we need.
 
-After the database we take care of set up the Queue system, you can guess that it will support RabbitMQ and the normal multiprocessing queue offered by python.
-
-It set phantomjs a way to manage Ajax web page.
-
-It add a list to the dictionary that keep all the information it has build until now.
-
-Up until now this function have simply build the context where the software is going to run.
-
-Finally, if we just want to run the application another function is invoked.
-
-The function `all`.
+Finally we start the real work invoking the function `all()`.
 
 #### all()
 
 A web crawler does A LOT of IO, it is a good idea to spawn different thread/subprocess to manage all this work.
+
+In this way when you are waiting for the network to get your html page, at the same time you are extracting useful information from the previuos pages.
 
 The function `all()` decide if run subprocess or thread and then invoke all the necessary function inside a different thread/subprocess.
 
 At this point the required number of thread are spawned for any of the logical piece of the crawler, including the webui.
 
 When we finish and close the webui we will closing each thread in a nice and clean way.
+
+Now our crawler is live, let's explore it a little more deeply.
+
+### scheduler
+
+The scheduler receive task from a queue and put task in another queue.
+
+The very first thing that the scheduler does is to load from the database all the task that need to be done.
+
+After that it start an infinite loop.
+
+In the loop several methods are called:
+
+1. `_update_projects()`: read the database and add new task to the queue.
+
+2. `_check_task_done()`: analyze every single task in the queue.
+
+3. `_check_request()`: if the processor ask to analyze more pages, put such pages in the queue.
+
+4. `_check_select()`: add new web page to the queue of the fetcher.
+
+5. `_check_delete()`: delete old or no more interesting task from the queue.
+
+6. `_try_dump_cnt()`: write how many task are been done in a file.
+
+The loop also check for exception of if we ask python to stop the process.
+
+
+### fetcher
+
+The goal of the fetcher is to retrieve web resource.
+
+pyspider is able to manage either plain html text page and Ajax based page.
+
+It is important to know that only the fetcher is aware of this difference.
+
+We are going to focus only on the plain html text fetcher, however most of the ideas can be easily ported to the Ajax fetcher.
+
 
 
 
