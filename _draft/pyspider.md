@@ -221,6 +221,40 @@ The callback is a little method, `send_result`.
 
 This final method put the result in the output queue, ready to be consumed by the processor.
 
+### processor
+
+The processor goal is to analyze the pages that are been crawled.
+
+Also the processor is a big loop, but it has three queue in output (`status_queue`, `newtask_queue` and `result_queue`) and only one queue in input (`inqueue`).
+
+Let's analyze a little more deeply the loop in `run()`.
+
+#### run(self)
+
+This methos is small and easy to follow, it simply get the next task that need to be analyzed from the queue and analyze it with `on_taks(task, response)`.
+
+The loop also listen for interruption signal and count the number of exception it incur to, too many exception will break the loop.
+
+#### on_task(self, task, response)
+
+On task is the method that does the real work.
+
+From the task in input it try to obtain the project such task belong to.
+
+The it run the custom script from the projects.
+
+Finally it analyze the responses of the custom script.
+
+If everything went good a nice dictionary with all the information we gather from the page is created and finally put on the `status_queue` that will be later re-used by the sceduler.
+
+If there are some new link to follow in the page just analyzed such link are pushed into the `newtast_queue` that will be later consumed by the scheduler.
+
+Now, pyspider send task to other projects if this apply.
+
+Finally if some error happened, stuff like a page return error it is add to the log.
+
+### end
+
 
 
 [pyspider]: https://github.com/binux/pyspider
