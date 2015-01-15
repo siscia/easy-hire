@@ -121,7 +121,7 @@ Now our crawler is live, let's explore it a little more deeply.
 
 ### scheduler
 
-The scheduler receive task from a queue and put task in another queue.
+The scheduler receive task from two different queue (`newtask_queue` and `status_queue`) and put task in another queue (`out_queue`) that will be later consumed by the fetcher.
 
 The very first thing that the scheduler does is to load from the database all the task that need to be done.
 
@@ -129,17 +129,17 @@ After that it start an infinite loop.
 
 In the loop several methods are called:
 
-1. `_update_projects()`: read the database and add new task to the queue.
+1. `_update_projects()`: try to update variuos setting of the scheduler, eg, if we want to change the crawl speed while the crawler is working.
 
-2. `_check_task_done()`: analyze every single task in the queue.
+2. `_check_task_done()`: analyze the completed task and save those on the database, it get its task from the `status_queue`.
 
-3. `_check_request()`: if the processor ask to analyze more pages, put such pages in the queue.
+3. `_check_request()`: if the processor ask to analyze more pages, put such pages in the queue, it get the new task from the `newtask_queue`.
 
 4. `_check_select()`: add new web page to the queue of the fetcher.
 
-5. `_check_delete()`: delete old or no more interesting task from the queue.
+5. `_check_delete()`: delete task and projects that are been market by the user.
 
-6. `_try_dump_cnt()`: write how many task are been done in a file.
+6. `_try_dump_cnt()`: write how many task are been done in a file, it is necessary to prevent data lost if the program exit anormaly.
 
 The loop also check for exception of if we ask python to stop the process.
 
