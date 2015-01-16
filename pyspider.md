@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tech
 title: pyspider
 ---
 
@@ -136,6 +136,17 @@ The function `all()` decides if run subprocess or thread and then invokes all th
 
 At this point the required number of threads are spawned for any of the logical piece of the crawler, including the webui.
 
+```python
+finally:
+    # exit components run in subprocess
+	for each in threads:
+        if not each.is_alive():
+            continue
+		if hasattr(each, 'terminate'):
+            each.terminate()
+		each.join()
+```
+
 When we finish and close the webui we will close each thread in a nice and clean way.
 
 Now our crawler is live, let's explore it a little more deeply.
@@ -145,6 +156,35 @@ Now our crawler is live, let's explore it a little more deeply.
 The scheduler receive tasks from two different queues (`newtask_queue` and `status_queue`) and put tasks in another queue (`out_queue`) that will be later consumed by the fetcher.
 
 The very first thing that the scheduler does is to load from the database all the tasks that need to be done.
+
+```python
+def run(self):
+    '''Start scheduler loop'''
+	logger.info("loading projects")
+	self._load_projects()
+
+	while not self._quit:
+        try:
+            time.sleep(self.LOOP_INTERVAL)
+			self._update_projects()
+			self._check_task_done()
+            self._check_request()
+            while self._check_cronjob():
+                pass
+            self._check_select()
+            self._check_delete()
+            self._try_dump_cnt()
+            self._exceptions = 0
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            logger.exception(e)
+			self._exceptions += 1
+			if self._exceptions > self.EXCEPTION_LIMIT:
+                break
+			continue
+
+```
 
 After that it starts an infinite loop.
 
@@ -162,9 +202,7 @@ In the loop several methods are called:
 
 6. `_try_dump_cnt()`: writes how many tasks have been done in a file, it is necessary to prevent data loss if the program exits abnormally.
 
-The loop also check for exception or if we ask python to stop the process.
-
-
+The loop also check for exception or if we ask python to stop the process
 ### fetcher
 
 The goal of the fetcher is to retrieve web resource.
@@ -194,6 +232,25 @@ All the heavy asynchronous lift in pyspider is made by [tornado][tornado] anothe
 Now that we have the big idea in mind let's explore a little more deeply how this is implemented.
 
 #### run()
+```python
+def run(self):
+	def queue_loop():
+        if not self.outqueue or not self.inqueue:
+            return
+		while not self._quit:
+            try:
+                if self.outqueue.full():
+                    break
+				task = self.inqueue.get_nowait()
+				task = utils.decode_unicode_obj(task)
+				self.fetch(task)
+			except queue.Empty:
+                break
+	tornado.ioloop.PeriodicCallback(queue_loop, 100, io_loop=self.ioloop).start()
+	self._running = True
+    self.ioloop.start()
+
+```
 
 The method `run()` is the big loop of our fetcher.
 
@@ -211,6 +268,26 @@ We are going to follow `http_fetch()`.
 
 #### http_fetch(self, url, task, callback)
 
+```python
+def http_fetch(self, url, task, callback):
+    '''HTTP fetcher'''
+    fetch = copy.deepcopy(self.default_options)
+	fetch['url'] = url
+	fetch['headers']['User-Agent'] = self.user_agent
+
+	def handle_response(response):
+		...
+		return task, result
+
+	try:
+        request = tornado.httpclient.HTTPRequest(header_callback=header_callback, **fetch)            
+		if self.async:
+			self.http_client.fetch(request, handle_response)
+		else:
+            return handle_response(self.http_client.fetch(request))
+        
+```
+
 Finally, here is where the real work is done.
 
 This method is a little long, but it is well structured and easy to follow.
@@ -221,27 +298,35 @@ Then a function to handle the response is defined, `handle_response()`, we are g
 
 Finally we make a tornado request and we fired up such request.
 
-``` python
-if self.async:
-    self.http_client.fetch(request, handle_response)
-else:
-    return handle_response(self.http_client.fetch(request))
-```
-
 Please note how the same function is used in either case, asynchronous and not asynchronous, to handle the response.
 
 Let's go a little back and analyze what `handle_response()` does.
 
 #### handle_response(response)
 
+```python
+def handle_response(response):
+	result = {}
+	result['orig_url'] = url
+    result['content'] = response.body or ''
+	callback('http', task, result)
+	return task, result
+```
+
+
 The function saves in a dictionary all the relevant informations about a response, stuff like the url, the status code and the actual response, then it calls the callback.
 
 The callback is a little method, `send_result()`.
 
 #### send_result(self, type, task, result)
+```python
+def send_result(self, type, task, result):
+    if self.outqueue:
+		self.outqueue.put((task, result))
+```
 
 This final method puts the result in the output queue, ready to be consumed by the processor.
-
+	
 ### processor
 
 The processor's goal is to analyze the pages that have been crawled.
@@ -252,12 +337,52 @@ Let's analyze a little more deeply the loop in `run()`.
 
 #### run(self)
 
+```python
+def run(self):
+	try:
+		task, response = self.inqueue.get(timeout=1)
+		self.on_task(task, response)
+		self._exceptions = 0
+	except KeyboardInterrupt:
+        break
+	except Exception as e:
+		self._exceptions += 1
+		if self._exceptions > self.EXCEPTION_LIMIT:
+			break
+		continue
+```
+
 This method is small and easy to follow, it simply gets the next task that needs to be analyzed from the queue and analyzes it with `on_taks(task, response)`.
 
-The loop also listens for the interruption signal and counts the number of exceptions it incurs to, too many exceptions will break the loop.
+The loop listens for the interruption signal, whenever we send such signal to python the loop will break.
+
+Finaly the loops counts the number of exceptions it incurs to, too many exceptions will break the loop.
 
 #### on_task(self, task, response)
+```python
+def on_task(self, task, response):
+	response = rebuild_response(response)
+	project = task['project']
+	project_data = self.project_manager.get(project, updatetime)
+	ret = project_data['instance'].run(
+		
+	status_pack = {
+		'taskid': task['taskid'],
+		'project': task['project'],
+		'url': task.get('url'),
+		...
+		}
+    self.status_queue.put(utils.unicode_obj(status_pack))
+	if ret.follows:
+		self.newtask_queue.put(
+			[utils.unicode_obj(newtask) for newtask in ret.follows])
 
+	for project, msg, url in ret.messages:
+        self.inqueue.put(({...},{...}))
+
+	return True
+
+```
 `on_task()` is the method that does the real work.
 
 From the task in input it tries to obtain the project such task belongs to.

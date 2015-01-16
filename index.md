@@ -1,6 +1,6 @@
 ---
-layout: default
 title: Open Hire
+layout: default
 ---
 
 Open Hire is a simple project that aims at changing how companies hire developers.
