@@ -1,0 +1,16 @@
+
+@media(min-width: 60rem){
+    .highlight {
+	position: absolute;
+	margin-left: 31rem;
+	width: 29rem;
+    }
+}
+
+.side-code {}
+
+.container {
+  max-width: 30rem;
+  margin: 0 2rem;
+  padding: 0 1rem;
+}
