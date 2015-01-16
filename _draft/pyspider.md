@@ -3,6 +3,12 @@
 
 In this first article we are going to analyze a web crawler.
 
+A web crawler is a tool to scan the web and memorize informations, it open a whole bunch of web pages, analyze the page looking for any interesting data, store the data in a database and start again with other pages.
+
+If in the page the crawler is analyzing there is some link, the cralwer will follow such links analyzing some more pages.
+
+The search engines are based on this same idea.
+
 I choose an healthy and young open source project in particular [pyspider][pyspider] wrote by our friend [binux][binux].
 
 ### A little side note
@@ -33,6 +39,12 @@ Finally there is the monitor component.
 
 The web ui is extremely powerful, it let you to edit and debug your script, to manage the whole process, to monitor what task are going on and finally to export the result.
 
+### projects and task
+
+In pyspider we have the notion of **projects** and **taks**.
+
+A task is single page that need to be
+
 ## Code Structure Analysis
 
 ### Root
@@ -45,15 +57,15 @@ The folder we can find in the root are:
 
 + `pyspider`, it contains the actual code.
 
-+ `test`, it contains a fairly good amount of test.
++ `test`, it contains a fairly good amount of tests.
 
-Then there are some important file that I would like to highlight:
+Then there are some important files that I would like to highlight:
 
 + `.travis.yml`, wonderful continuous integration, this is how you are sure that your project actually works, test in only your machine with only your version of the code is not enough.
 
 + `Dockerfile`, again, wonderful, if I want to try the project in my machine I just run Docker, I don't need to install anything manually, this is a great way to involve developer to contribute in your project.
 
-+ `LICENSE`, necessary for any Open Source project, do not forget your.
++ `LICENSE`, necessary for any Open Source project, do not forget yours.
 
 + `requirements.txt`, in the python world is how you write what package need to be installed in your system in order to run the software, it is a must in any python project.
 
@@ -101,7 +113,7 @@ This function seems complex but stay with me, it is not that bad.
 
 The main goal of `cli()` is to create all the connection to the database and to the message system.
 
-Mostly it parse command line argument, and create a big dictionary with everything we need.
+Mostly it parses command line arguments, and create a big dictionary with everything we need.
 
 Finally we start the real work invoking the function `all()`.
 
@@ -115,48 +127,48 @@ The function `all()` decide if run subprocess or thread and then invoke all the 
 
 At this point the required number of thread are spawned for any of the logical piece of the crawler, including the webui.
 
-When we finish and close the webui we will closing each thread in a nice and clean way.
+When we finish and close the webui we will close each thread in a nice and clean way.
 
 Now our crawler is live, let's explore it a little more deeply.
 
 ### scheduler
 
-The scheduler receive task from two different queue (`newtask_queue` and `status_queue`) and put task in another queue (`out_queue`) that will be later consumed by the fetcher.
+The scheduler receive tasks from two different queues (`newtask_queue` and `status_queue`) and put tasks in another queue (`out_queue`) that will be later consumed by the fetcher.
 
-The very first thing that the scheduler does is to load from the database all the task that need to be done.
+The very first thing that the scheduler does is to load from the database all the tasks that need to be done.
 
-After that it start an infinite loop.
+After that it starts an infinite loop.
 
 In the loop several methods are called:
 
-1. `_update_projects()`: try to update variuos setting of the scheduler, eg, if we want to change the crawl speed while the crawler is working.
+1. `_update_projects()`: tries to update various settings of the scheduler, eg, if we want to change the crawl speed while the crawler is working.
 
-2. `_check_task_done()`: analyze the completed task and save those on the database, it get its task from the `status_queue`.
+2. `_check_task_done()`: analyzes the completed task and save those on the database, it get its task from the `status_queue`.
 
-3. `_check_request()`: if the processor ask to analyze more pages, put such pages in the queue, it get the new task from the `newtask_queue`.
+3. `_check_request()`: if the processor asks to analyze more pages, put such pages in the queue, it get the new task from the `newtask_queue`.
 
-4. `_check_select()`: add new web page to the queue of the fetcher.
+4. `_check_select()`: adds new web page to the queue of the fetcher.
 
-5. `_check_delete()`: delete task and projects that are been market by the user.
+5. `_check_delete()`: deletes tasks and projects that have been marked by the user.
 
-6. `_try_dump_cnt()`: write how many task are been done in a file, it is necessary to prevent data lost if the program exit anormaly.
+6. `_try_dump_cnt()`: writes how many tasks have been done in a file, it is necessary to prevent data loss if the program exits abnormally.
 
-The loop also check for exception of if we ask python to stop the process.
+The loop also check for exception or if we ask python to stop the process.
 
 
 ### fetcher
 
 The goal of the fetcher is to retrieve web resource.
 
-pyspider is able to manage either plain html text page and Ajax based page.
+pyspider is able to manage either plain html text pages and Ajax based pages.
 
 It is important to know that only the fetcher is aware of this difference.
 
 We are going to focus only on the plain html text fetcher, however most of the ideas can be easily ported to the Ajax fetcher.
 
-The idea here is somehow similar to the scheduler one, we have two queue, one of input and one of output and a big loop.
+The idea here is somehow similar to the scheduler's one, we have two queues, one for the input and one for the output and a big loop.
 
-For any element in the input queue, make a request and put the result in the output queue.
+For any element in the input queue, the fetcher makes a request and puts the result in the output queue.
 
 It sound easy but there is a big problem.
 
@@ -164,7 +176,7 @@ The net usually is extremely slow, if you block all the computation whenever you
 
 The solution is simple, do not block the whole computation while you are waiting for the network.
 
-The idea, is to send a lot of message pretty much all together over the network and asynchronously wait for the responses to come back.
+The idea is to send a lot of messages, pretty much all together, over the network and asynchronously wait for the responses to come back.
 
 As soon as we got back one response we call another function, a callback that will take care of manage, in the most appropriate way, such response.
 
@@ -176,15 +188,15 @@ Now that we have the big idea in mind let's explore a little more deeply how thi
 
 The method `run()` is the big loop of our fetcher.
 
-Inside run another function `queue_loop()` is defined, such function take all the task in the input queue and fetch them, also it listen for interruption signal.
+Inside run another function `queue_loop()` is defined, such function take all the tasks in the input queue and fetches them, also it listen for an interruption signal.
 
-`queue_loop` is passed as argument to a tornado class `PeriodicCallback` that, how you can guess, will call it any specific amount of time.
+`queue_loop()` is passed as argument to a tornado class `PeriodicCallback` that, how you can guess, will call it every specific amount of time.
 
-`queue_loop()` just call another function that bring us a step closer to actually retrieve the web resource: `fetch()`.
+`queue_loop()` just calls another function that brings us a step closer to actually retrieve the web resource: `fetch()`.
 
 #### fetch(self, task, callback=None)
 
-`fetch()` just decide what is the proper way to retrieve a resource, if the resource must be retrieve using `phantomjs_fetch` or the simpler `http_fetch`.
+`fetch()` just decides what is the proper way to retrieve a resource, if the resource must be retrieved using `phantomjs_fetch()` or the simpler `http_fetch()`.
 
 We are going to follow `http_fetch()`.
 
@@ -194,7 +206,7 @@ Finally, here is where the real work is done.
 
 This method is a little long, but it is well structured and easy to follow.
 
-In the first part of the method we are all setting the header, so stuff like the User-Agent, the timeout etc.
+In the first part of the method it sets the header, so stuff like the User-Agent, the timeout etc.
 
 Then a function to handle the response is defined, `handle_response()`, we are going to analyze this function later.
 
@@ -207,51 +219,51 @@ else:
     return handle_response(self.http_client.fetch(request))
 {% endhighlight %}
 
-Please note how the same function to handle the response is used in either case, asynchronous and not asynchronous.
+Please note how the same function is used in either case, asynchronous and not asynchronous, to handle the response.
 
 Let's go a little back and analyze what `handle_response()` does.
 
 #### handle_response(response)
 
-The function save in a dictionary all the relevant information about a response, stuff like the url, the status code and the actual response, then it call the callback.
+The function saves in a dictionary all the relevant informations about a response, stuff like the url, the status code and the actual response, then it calls the callback.
 
-The callback is a little method, `send_result`.
+The callback is a little method, `send_result()`.
 
 #### send_result(self, type, task, result)
 
-This final method put the result in the output queue, ready to be consumed by the processor.
+This final method puts the result in the output queue, ready to be consumed by the processor.
 
 ### processor
 
-The processor goal is to analyze the pages that are been crawled.
+The processor's goal is to analyze the pages that have been crawled.
 
-Also the processor is a big loop, but it has three queue in output (`status_queue`, `newtask_queue` and `result_queue`) and only one queue in input (`inqueue`).
+Also the processor is a big loop, but it has three queues in output (`status_queue`, `newtask_queue` and `result_queue`) and only one queue in input (`inqueue`).
 
 Let's analyze a little more deeply the loop in `run()`.
 
 #### run(self)
 
-This methos is small and easy to follow, it simply get the next task that need to be analyzed from the queue and analyze it with `on_taks(task, response)`.
+This method is small and easy to follow, it simply gets the next task that needs to be analyzed from the queue and analyzes it with `on_taks(task, response)`.
 
-The loop also listen for interruption signal and count the number of exception it incur to, too many exception will break the loop.
+The loop also listens for the interruption signal and counts the number of exceptions it incurs to, too many exceptions will break the loop.
 
 #### on_task(self, task, response)
 
-On task is the method that does the real work.
+`on_task()` is the method that does the real work.
 
-From the task in input it try to obtain the project such task belong to.
+From the task in input it tries to obtain the project such task belongs to.
 
-The it run the custom script from the projects.
+The it runs the custom script from the project.
 
-Finally it analyze the responses of the custom script.
+Finally it analyzes the responses of the custom script.
 
-If everything went good a nice dictionary with all the information we gather from the page is created and finally put on the `status_queue` that will be later re-used by the sceduler.
+If everything went good a nice dictionary with all the informations we gathered from the page is created and finally puts on the `status_queue` that will be later re-used by the scheduler.
 
-If there are some new link to follow in the page just analyzed such link are pushed into the `newtast_queue` that will be later consumed by the scheduler.
+If there are some new links to follow in the page just analyzed such links are pushed into the `newtask_queue` that will be later consumed by the scheduler.
 
-Now, pyspider send task to other projects if this apply.
+Now, pyspider sends tasks to other projects if this apply.
 
-Finally if some error happened, stuff like a page return error it is add to the log.
+Finally if some errors happened, stuff like a page returned error, is add to the log.
 
 ### end
 
