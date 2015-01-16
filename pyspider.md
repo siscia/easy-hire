@@ -159,10 +159,6 @@ The very first thing that the scheduler does is to load from the database all th
 
 ```python
 def run(self):
-    '''Start scheduler loop'''
-	logger.info("loading projects")
-	self._load_projects()
-
 	while not self._quit:
         try:
             time.sleep(self.LOOP_INTERVAL)
