@@ -129,7 +129,7 @@ td, th {
 }
 
 pre, code {
-  font-family: inherit;
+  /*font-family: inherit;*/
   background-color: #eee;
 }
 
