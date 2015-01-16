@@ -221,12 +221,12 @@ Then a function to handle the response is defined, `handle_response()`, we are g
 
 Finally we make a tornado request and we fired up such request.
 
-{% highligh python %}
+``` python
 if self.async:
     self.http_client.fetch(request, handle_response)
 else:
     return handle_response(self.http_client.fetch(request))
-{% endhighlight %}
+```
 
 Please note how the same function is used in either case, asynchronous and not asynchronous, to handle the response.
 
