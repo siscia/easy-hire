@@ -1,3 +1,8 @@
+---
+layout: default
+title: pyspider
+---
+
 
 # Anatomy of a Web Crawler
 

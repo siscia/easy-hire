@@ -3,13 +3,13 @@
 
 In this first article we are going to analyze a web crawler.
 
-A web crawler is a tool to scan the web and memorize informations, it open a whole bunch of web pages, analyze the page looking for any interesting data, store the data in a database and start again with other pages.
+A web crawler is a tool to scan the web and memorize informations, it opens a whole bunch of web pages, analyzes the page looking for any interesting data, stores the data in a database and starts again with other pages.
 
-If in the page the crawler is analyzing there is some link, the cralwer will follow such links analyzing some more pages.
+If in the page the crawler is analyzing there are some links, the cralwer will follow such links analyzing some more pages.
 
 The search engines are based on this same idea.
 
-I choose an healthy and young open source project in particular [pyspider][pyspider] wrote by our friend [binux][binux].
+I choose a healthy and young open source project in particular [pyspider][pyspider] wrote by our friend [binux][binux].
 
 ### A little side note
 
@@ -41,21 +41,21 @@ The web ui is extremely powerful, it let you to edit and debug your script, to m
 
 ### projects and task
 
-In pyspider we have the notion of **projects** and **taks**.
+In pyspider we have the notion of **projects** and **tasks**.
 
 A task is single page that need to be retrieved from the web and analyzed.
 
-A projects is bigger entities that wrap all the pages touched by the crawler, the python script necessary to analyze the page, the databases used to store the data and so on.
+A project is a bigger entity that wraps all the pages touched by the crawler, the python script necessary to analyze the pages, the databases used to store the data and so on.
 
-In pyspider we can have multiple projects running simuntaneusly.
+In pyspider we can have multiple projects running simultaneously.
 
 ## Code Structure Analysis
 
 ### Root
 
-The folder we can find in the root are:
+The folders we can find in the root are:
 
-+ `data`, empty folder, I suppose it is where the data generate from the crawler itself are stored.
++ `data`, empty folder, it is where the data generate from the crawler itself are stored.
 
 + `docs`, it contains the markdown code for the documentation.
 
@@ -65,13 +65,13 @@ The folder we can find in the root are:
 
 Then there are some important files that I would like to highlight:
 
-+ `.travis.yml`, wonderful continuous integration, this is how you are sure that your project actually works, test in only your machine with only your version of the code is not enough.
++ `.travis.yml`, wonderful, continuous integration! This is how you are sure that your project actually works, test in only your machine with only your version of libraries is not enough.
 
-+ `Dockerfile`, again, wonderful, if I want to try the project in my machine I just run Docker, I don't need to install anything manually, this is a great way to involve developer to contribute in your project.
++ `Dockerfile`, again, wonderful! If I want to try the project in my machine I just run Docker, I don't need to install anything manually, this is a great way to involve developers to contribute in your project.
 
 + `LICENSE`, necessary for any Open Source project, do not forget yours.
 
-+ `requirements.txt`, in the python world is how you write what package need to be installed in your system in order to run the software, it is a must in any python project.
++ `requirements.txt`, in the python world is how you write what packages need to be installed in your system in order to run the software, it is a must in any python project.
 
 + `run.py`, the main entry point of the software.
 
@@ -83,9 +83,9 @@ Already from just the root of the project we can say that it is been developed i
 
 Let's dive a little deeper and let's analyze the real code now.
 
-In this folder we find yet other folders, the logical idea behind the whole software is been divide so that it is easier to manage and grow.
+In this folder we find yet other folders, the logical idea behind the whole software has been divide so that it is easier to manage and to grow.
 
-The several folder are:
+The several folders are:
 
 + database
 
@@ -105,9 +105,9 @@ In this folder we find also the main entry point of the whole project, `run.py`.
 
 ### run.py
 
-This file make all the necessaries chores in order to run the crawler successfully.
+This file makes all the necessary chores in order to run the crawler successfully.
 
-Finally it spawn all the necessary computational unities.
+Finally it spawns all the necessary computational unities.
 
 Scrolling down we can see the entry point of the whole project, `cli()`.
 
@@ -127,9 +127,9 @@ A web crawler does A LOT of IO, it is a good idea to spawn different thread/subp
 
 In this way when you are waiting for the network to get your html page, at the same time you are extracting useful information from the previous pages.
 
-The function `all()` decide if run subprocess or thread and then invoke all the necessary function inside a different thread/subprocess.
+The function `all()` decides if run subprocess or thread and then invokes all the necessary functions inside a different thread/subprocess.
 
-At this point the required number of thread are spawned for any of the logical piece of the crawler, including the webui.
+At this point the required number of threads are spawned for any of the logical piece of the crawler, including the webui.
 
 When we finish and close the webui we will close each thread in a nice and clean way.
 
