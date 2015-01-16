@@ -43,7 +43,11 @@ The web ui is extremely powerful, it let you to edit and debug your script, to m
 
 In pyspider we have the notion of **projects** and **taks**.
 
-A task is single page that need to be
+A task is single page that need to be retrieved from the web and analyzed.
+
+A projects is bigger entities that wrap all the pages touched by the crawler, the python script necessary to analyze the page, the databases used to store the data and so on.
+
+In pyspider we can have multiple projects running simuntaneusly.
 
 ## Code Structure Analysis
 
