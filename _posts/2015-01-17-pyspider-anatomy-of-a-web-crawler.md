@@ -1,6 +1,7 @@
 ---
 layout: tech
 title: pyspider
+root: "../../../"
 ---
 
 
