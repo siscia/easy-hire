@@ -4,7 +4,6 @@ title: pyspider
 ---
 
 
-
 # Anatomy of a Web Crawler
 
 In this first article we are going to analyze a web crawler.
@@ -402,5 +401,3 @@ Finally if some errors happened, stuff like a page returned error, is add to the
 [pyspider]: https://github.com/binux/pyspider
 [binux]: https://github.com/binux
 [tornado]: http://tornadoweb.org/
-
-[write_me]: mailto:simone@mweb.biz

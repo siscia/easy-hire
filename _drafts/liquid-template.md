@@ -1,3 +1,10 @@
+---
+layout: tech
+title: Liquid
+root: "../"
+---
+
+
 # Liquid template engine
 
 ## Abstract
