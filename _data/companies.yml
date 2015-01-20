@@ -32,3 +32,11 @@
   type: random
   email: jobs@chartbeat.com
 
+- name: tray.io
+  link: http://tray.io/
+  link-position: http://tray.io/company/work-with-us/
+  stack: [scala, java, go, javascript, ruby]
+  location: London, City of
+  sector:
+  type: random
+  email: //
