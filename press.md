@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 ## About OpenHire.
 
 OpenHire is a simple board that let company and open source developers meets.
