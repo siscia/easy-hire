@@ -24,15 +24,15 @@ irb> greets.render('name' => 'OpenHire')
 => "Ciao OpenHire"
 ```
 
-Liquid is been developed Tobias Luetke by and it is extensivily used in Shoppify.
+Liquid is been developed Tobias Luetke by and it is extensively used in Shoppify.
 
-Liquid is also been adopted as stadard template engine for Jekyll, a stateless blog engine that is used in the github's page, this same blog use Liquid.
+Liquid is also been adopted as standard template engine for Jekyll, a stateless blog engine that is used in the github's page, this same blog use Liquid.
 
-Before to dive into the detail of Liquid itself let's explore what this wonderfully small piece of software does and why it is sucesfull.
+Before to dive into the detail of Liquid itself let's explore what this wonderfully small piece of software does and why it is successfully.
 
-Liquid provide a safe environmet, this means that I can render on Liquid templates that I don't trust.
+Liquid provide a safe environment, this means that I can render on Liquid templates that I don't trust.
 
-Liquid is stateless, once I parse the template the rendering process is a completelly different deal.
+Liquid is stateless, once I parse the template the rendering process is a completely different deal.
 
 ## Simple analysis
 
@@ -75,7 +75,7 @@ In order to render the final string we need to:
 
 ### Overview
 
-The scope of `Liquid::Template.parse(source)` is pretty limited, it takes a (long) string, a template, as input and create an in-memory rappresentation of such templates.
+The scope of `Liquid::Template.parse(source)` is pretty limited, it takes a (long) string, a template, as input and create an in-memory representation of such templates.
 
 Now we are focus on understand how this is accomplished.
 
@@ -98,7 +98,7 @@ The method return self so it will be easy to chain other calls.
 
 Let's focus a little bit more on the input of `Document.parse()`.
 
-The second argument is self explaning, it is a simple way to pass common and default options to the parse.
+The second argument is self explaining, it is a simple way to pass common and default options to the parse.
 
 The first argument however is a little more comple and we are going to analyze this one first.
 
@@ -115,9 +115,9 @@ def tokenize(source)
 
 Also this function is simple to analyze.
 
-At first the source is split by a regular expression into smaller string, the regular expression will catch variable and tag inizialization.
+At first the source is split by a regular expression into smaller string, the regular expression will catch variable and tag initialization.
 
-You can see that the regular expression is quite complex, however is mado out of smaller expression, so it is easier to write and to understand.
+You can see that the regular expression is quite complex, however is made out of smaller expression, so it is easier to write and to understand.
 
 {% raw %}
 ```ruby
@@ -135,7 +135,7 @@ irb> a.split(Liquid::TemplateParser)
 ```
 {% endraw %}
 
-Now that we have splitted the source in more manageble little string those little string are used to create `Token` in `calculate_line_numbers(["source"])`
+Now that we have splitted the source in more manageable little string those little string are used to create `Token` in `calculate_line_numbers(["source"])`
 
 {% raw %}
 <div class="hidden-br">
@@ -156,7 +156,7 @@ def calculate_line_numbers(raw_tokens)
   end
 end
 ```
-Also this function is extremelly small, the function is nothing more that a loop in the input vector, for any element into the vector in creates a `Token` and return a vector of those tokens.
+Also this function is extremely small, the function is nothing more that a loop in the input vector, for any element into the vector in creates a `Token` and return a vector of those tokens.
 
 While the function loop it also keep count of what line we are in the source file, such information will be helpful in case of debug.
 
@@ -259,7 +259,7 @@ We try to recognize the tag of the token, if we cannot recognize the tag we retu
 
 If we are able to recognize the tag we analyze the whole token and we save the result.
 
-Looking carefully throught the code you will notice that the parsing of the body inside a tag is recursive, basically we will repeat this same procedure.
+Looking carefully thought the code you will notice that the parsing of the body inside a tag is recursive, basically we will repeat this same procedure.
 
 #### parse of vars
 
@@ -272,7 +272,7 @@ when token.start_with?(VARSTART)
 else
 ```
 
-The parse of a variable is a little simpler, `create_variable` simply create a new object that keep in memory the actuall context.
+The parse of a variable is a little simpler, `create_variable` simply create a new object that keep in memory the actual context.
 
 Finally the new variable is pushed in the list of results.
 
@@ -287,6 +287,6 @@ else
 end
 ```
 
-This is the simples possible way, the token is simply push into the list of the nodes.
+This is the simplest possible way, the token is simply push into the list of the nodes.
 
 [liquid-github]: https://github.com/Shopify/liquid
