@@ -1,7 +1,6 @@
 ---
 layout: tech
 title: Liquid
-root: "../"
 ---
 
 
