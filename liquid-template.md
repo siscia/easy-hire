@@ -24,7 +24,7 @@ irb> greets.render('name' => 'OpenHire')
 => "Ciao OpenHire"
 ```
 
-Liquid is been developed Tobias Luetke by and it is extensively used in Shoppify.
+Liquid is been developed Tobias Luetke by and it is extensively used in Shopify.
 
 Liquid is also been adopted as standard template engine for Jekyll, a stateless blog engine that is used in the github's page, this same blog use Liquid.
 
@@ -100,7 +100,7 @@ Let's focus a little bit more on the input of `Document.parse()`.
 
 The second argument is self explaining, it is a simple way to pass common and default options to the parse.
 
-The first argument however is a little more comple and we are going to analyze this one first.
+The first argument however is a little more complex and we are going to analyze this one first.
 
 ### tokenize(source)
 
@@ -182,9 +182,7 @@ class Document < BlockBody
 
 You can see that this method does not do anything interesting, however we can note that Document is a subclass of BlockBody, and we also see that in the parse method we call super, so we are expecting to see the real parse implementation in the BlockBody class.
 
-`BockBody.parse` (aka `super`) will return something if the it find something it cannot parse.
-
-The function `unknown_tag` will simply raise an exception if such event occur.
+`BockBody.parse` will return a couple of string (`end_tag_name` and `end_tag_params`) if it cannot parse a particular tag, the function `unknown_tag` will simply raise an exception if such event occur.
 
 ### BlockBody.parse(token, option)
 ``` ruby
@@ -216,7 +214,7 @@ The code of this function is pretty long, but it is pretty easy to follow.
 
 We have one big loop that scan every single token.
 
-It analyzes the token, and if the token is not empty it disting between three different cases.
+It analyzes the token, and if the token is not empty there are three different path that can be taken.
 
 When the token starts like a tag, when the token starts like a variable and when the token is simple text.
 
@@ -272,11 +270,9 @@ when token.start_with?(VARSTART)
 else
 ```
 
-The parse of a variable is a little simpler, `create_variable` simply create a new object that keep in memory the actual context.
+The parse of a variable is a little simpler, `create_variable` simply create a new variable.
 
-Finally the new variable is pushed in the list of results.
-
-It is also extremely interesting understand how a variable is created and how it's field access, we will discuss about it later.
+The variable will also analyze the filters that are applied, all this is done with an extensive use of regular expression.
 
 #### simple text tokens
 
