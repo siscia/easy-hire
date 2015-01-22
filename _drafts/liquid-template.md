@@ -71,6 +71,50 @@ In order to render the final string we need to:
 
 + run the tags
 
+## The parser
 
+### Overview
+
+The scope of `Liquid::Template.parse(source)` is pretty limited, it takes a (long) string, a template, as input and create an in-memory rappresentation of such templates.
+
+Now we are focus on understand how this is accomplished.
+
+### .parse(source, options)
+
+``` ruby
+def parse(source, options = {})
+      @options = options
+      @profiling = options[:profile]
+      @line_numbers = options[:line_numbers] || @profiling
+      @root = Document.parse(tokenize(source), DEFAULT_OPTIONS.merge(options))
+      @warnings = nil
+      self
+    end
+```
+
+The function simply get the options and some other parameter, finally it sets `@root = Document.parse(tokenize(source), DEFAULT_OPTIONS.merge(options))` here is were the real job is done.
+
+The method return self so it will be easy to chain other calls.
+
+Let's focus a little bit more on the input of `Document.parse()`.
+
+The second argument is self explaning, it is a simple way to pass common and default options to the parse.
+
+The first argument however is a little more comple and we are going to analyze this one first.
+
+### tokenize(source)
+
+```ruby
+def tokenize(source)
+      source = source.source if source.respond_to?(:source)
+      return [] if source.to_s.empty?
+      tokens = calculate_line_numbers(source.split(TemplateParser))
+      # removes the rogue empty element at the beginning of the array
+      tokens.shift if tokens[0] and tokens[0].empty?
+      tokens
+    end
+```
+
+Also this function is pretty simple to analyze
 
 [liquid-github]: https://github.com/Shopify/liquid

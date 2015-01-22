@@ -1,11 +1,18 @@
 
+.hidden-br {
+    display: none;
+}
+
 @media(min-width: 60rem){
     .highlight {
 	position: absolute;
 	margin-left: 31rem;
-	width: 29rem;
+    }
+    .hidden-br {
+	display: inline;
     }
 }
+
 
 .side-code {}
 
